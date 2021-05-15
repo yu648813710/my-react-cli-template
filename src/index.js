@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import List from './list'
 
 const show = () => {
@@ -8,14 +8,22 @@ const show = () => {
 
 let num = 1;
 
+
+export default  () => {
+const [isHidden, setHidden] = useState(false);
+
+
 const buttonClick = () => {
     console.log(num++)
+    setHidden(!isHidden)
 }
 
 const Button = () => <button onClick={buttonClick}>点击1</button>
 
-export default  () => (<div>
-    <h1 onClick={show}>123</h1>
-    <List data={['one','two','three']} />
-    <Button />
-</div>)
+return (<div>
+        <h1 onClick={show}>123</h1>
+        {isHidden && <h2>副标题</h2>}
+        <List data={['one','two','three', '4']} />
+        <Button />
+    </div>)
+}
