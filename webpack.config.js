@@ -2,9 +2,21 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // html插件
+const webpack = require('webpack'); // 默认全局变量
+
+
+
+const exportENV = (env) => {
+  const currentENV = require(path.resolve(__dirname, 'env') + '/' + (env ? env : 'index') + '.js')
+  return currentENV;
+}
+
 
 // 导出配置
-module.exports = {
+module.exports = env => {
+  console.log("🚀 ~ file: webpack.config.js ~ line 9 ~ env", env)
+
+  return {
     entry: './app.js', // 入口文件
     output: {
       filename: 'index.js', // 打包名称
@@ -30,9 +42,15 @@ module.exports = {
       ]
     },
     plugins: [ // 插件管理
+      // 静态文件插入
       new HtmlWebpackPlugin({
         title: 'React 脚手架',
         template: path.resolve(__dirname, 'public/index.html'), // 静态文件
-    }),
+      }),
+      // 环境变量处理
+      new webpack.DefinePlugin({
+          GLOBAL_ENV: JSON.stringify(exportENV(env.model))
+      })
     ],
+  }
 }
