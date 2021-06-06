@@ -8,7 +8,9 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "start": "webpack serve --open"
+    "start": "webpack serve --open",
+    "start:dev": "webpack serve --open --env model=dev",
+    "start:prd": "webpack serve --open --env model=prd"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
@@ -24,6 +26,7 @@
   },
   "dependencies": {
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "spritejs": "^3.7.31"
   }
 }

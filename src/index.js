@@ -1,29 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import List from './list'
-
-const show = () => {
-    console.log(6)
-}
-
-
-let num = 1;
-
+import * as spritejs from "spritejs";
 
 export default  () => {
-const [isHidden, setHidden] = useState(false);
+  // 初始画布
+  const initCanvas = () => {
+    const { Scene, Arc } = spritejs;
+    const container = document.getElementById("bottom");
+    const scene = new Scene({
+      container,
+      width: 1200,
+      height: 600,
+    });
+    const layer = scene.layer();
+    
+    const fan = new Arc({
+      pos: [300, 300],
+      radius: 100,
+      startAngle: 0,
+      endAngle: 120,
+      fillColor: 'red',
+    });
+    layer.append(fan);
+    
+    const fan2 = fan.cloneNode();
+    fan2.attr({
+      pos: [300, 150],
+      closeType: 'sector',
+    });
+    
+    layer.append(fan2);
+  };
 
 
-const buttonClick = () => {
-    console.log(num++)
-    setHidden(!isHidden)
-}
+  useEffect(() => {
+  console.log(GLOBAL_ENV)
+  initCanvas()
+  }, []);
 
-const Button = () => <button onClick={buttonClick}>点击1</button>
-
-return (<div>
-        <h1 onClick={show}>123</h1>
-        {isHidden && <h2>副标题</h2>}
-        <List data={['one','two','three', '4']} />
-        <Button />
+return (
+    <div className="App">
+      <div className="bottom" id="bottom">
+        <List data={[1,2,3]}/>
+      </div>
     </div>)
 }
