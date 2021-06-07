@@ -14,7 +14,6 @@ const exportENV = (env) => {
 
 // 导出配置
 module.exports = env => {
-  console.log("🚀 ~ file: webpack.config.js ~ line 9 ~ env", env)
 
   return {
     entry: './app.js', // 入口文件
@@ -38,6 +37,21 @@ module.exports = env => {
             path.resolve(__dirname, 'src'), // 使用目录
             path.resolve(__dirname, 'app.js'), // 使用文件
           ],
+        },
+        {
+          test: /\.(c|le)ss$/i,
+          use: [
+            'style-loader', // 解决css插入dom问题
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName: "[path][name]__[local]--[hash:base64:5]",// 解决 css冲突问题, 比较齐全的配置看文档 https://webpack.docschina.org/loaders/css-loader/#modules
+                },
+              }
+            }, // 解决 import 引入css问题
+            'less-loader', // 预处理
+          ],
         }
       ]
     },
@@ -49,7 +63,7 @@ module.exports = env => {
       }),
       // 环境变量处理
       new webpack.DefinePlugin({
-          GLOBAL_ENV: JSON.stringify(exportENV(env.model))
+        GLOBAL_ENV: JSON.stringify(exportENV(env.model))
       })
     ],
   }

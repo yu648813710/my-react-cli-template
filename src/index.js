@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import List from './list'
+import List from './components/list'
 import * as spritejs from "spritejs";
+import styles from './index.less'
 
 export default  () => {
   // 初始画布
@@ -39,9 +40,10 @@ export default  () => {
   }, []);
 
 return (
-    <div className="App">
-      <div className="bottom" id="bottom">
-        <List data={[1,2,3]}/>
+    <div className={styles.App}>
+      <List data={[1,2,3]}/>
+      <div className={styles.bottom} id="bottom">
+        <div className={styles.bottomTop}></div>
       </div>
     </div>)
 }
