@@ -4,7 +4,11 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // html插件
 const webpack = require('webpack'); // 默认全局变量
 
+// 抽取css成单独文件
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+// 压缩css用的
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const exportENV = (env) => {
   const currentENV = require(path.resolve(__dirname, 'env') + '/' + (env ? env : 'index') + '.js')
@@ -13,7 +17,9 @@ const exportENV = (env) => {
 
 
 // 导出配置
-module.exports = env => {
+module.exports = (env, args) => {
+// prd 模式
+const cssTypePrd = args.env.css === 'prd';
 
   return {
     entry: './app.js', // 入口文件
@@ -41,12 +47,12 @@ module.exports = env => {
         {
           test: /\.(c|le)ss$/i,
           use: [
-            'style-loader', // 解决css插入dom问题
+            !cssTypePrd ? 'style-loader' : MiniCssExtractPlugin.loader, // 抽取css文件 'style-loader', // 解决css插入dom问题 这个判断是为了解决两个不能同时使用的问题
             {
               loader: 'css-loader',
               options: {
                 modules: {
-                  localIdentName: "[path][name]__[local]--[hash:base64:5]",// 解决 css冲突问题, 比较齐全的配置看文档 https://webpack.docschina.org/loaders/css-loader/#modules
+                  localIdentName: "[path][name]__[local]--[hash:base64:5]", // 解决 css冲突问题, 比较齐全的配置看文档 https://webpack.docschina.org/loaders/css-loader/#modules
                 },
               }
             }, // 解决 import 引入css问题
@@ -64,7 +70,15 @@ module.exports = env => {
       // 环境变量处理
       new webpack.DefinePlugin({
         GLOBAL_ENV: JSON.stringify(exportENV(env.model))
-      })
-    ],
+      }),
+    ].concat(
+      cssTypePrd ? [new MiniCssExtractPlugin()] : []
+    ),// 抽取css文件
+    optimization: {
+      minimize: true, // 允许优化
+      minimizer: [
+        new CssMinimizerPlugin(), // 压缩css
+      ]
+    },
   }
 }
