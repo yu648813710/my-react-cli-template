@@ -49,9 +49,12 @@ export default () => {
 
   return (
     <div className={styles.App}>
-      <List data={[img1, img2, img3, img4, img5, img6]} />
+      {
+        [img1, img2, img3, img4, img5, img6].map((res) => <List src={res} key={res} />)
+      }
       <div className={styles.bottom} id="bottom">
         <div className={styles.bottomTop} />
       </div>
+      <p>asd</p>
     </div>)
 }

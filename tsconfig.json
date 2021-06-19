@@ -1,0 +1,12 @@
+{
+    "compilerOptions": { // 编译配置
+        "jsx": "react",
+        "types": ["node", "react", "react-dom"],
+        "allowSyntheticDefaultImports": true,
+        // 不生成文件，只做类型检查
+        "noEmit": true,        
+    },
+}
+// 参考链接 https://segmentfault.com/a/1190000021421461 
+// https://juejin.cn/post/6844904052094926855#heading-17
+// 这里没用ts-loader所亿tsconfig的作用只有给IDE提示

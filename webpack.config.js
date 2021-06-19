@@ -22,7 +22,7 @@ module.exports = (env, args) => {
   const cssTypePrd = args.env.css === 'prd'
 
   return {
-    entry: './app.js', // 入口文件
+    entry: './app.tsx', // 入口文件
     output: {
       filename: 'index.js', // 打包名称
       path: path.resolve(__dirname, 'dist'), // 打包路径
@@ -37,11 +37,11 @@ module.exports = (env, args) => {
     module: {
       rules: [ // 配置加载器
         {
-          test: /\.js?$/, // 处理es6语法以及jsx语法
+          test: /\.(jsx|tsx|js|ts)?$/, // 处理es6语法以及jsx语法
           loader: 'babel-loader',
           include: [
             path.resolve(__dirname, 'src'), // 使用目录
-            path.resolve(__dirname, 'app.js'), // 使用文件
+            path.resolve(__dirname, 'app.tsx'), // 使用文件
           ],
         },
         {
@@ -87,6 +87,9 @@ module.exports = (env, args) => {
       minimizer: [
         new CssMinimizerPlugin(), // 压缩css
       ],
+    },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.json', '.js'], // 尝试按顺序解析这些后缀名。如果有多个文件有相同的名字，但后缀名不同，webpack 会解析列在数组首位的后缀的文件 并跳过其余的后缀。
     },
   }
 }

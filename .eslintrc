@@ -6,10 +6,16 @@
     ],
     "rules": {
         "semi": [2, "never"],
-        "no-console":"off",
-        "react/no-array-index-key": "off"
+        "no-console": "off",
+        "react/no-array-index-key": "off",
+        "react/prop-types":"off"
     },
     "globals": {
-        "GLOBAL_ENV":true
-    }
+        "GLOBAL_ENV": true
+    },
+    "ignorePatterns": [ // 忽略文件夹
+        "dist",
+        "node_modules",
+        "*.d.ts"
+    ]
 }
