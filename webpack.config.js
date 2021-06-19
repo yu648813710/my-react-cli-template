@@ -1,25 +1,25 @@
 // 创建webpack配置文件
 
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // html插件
-const webpack = require('webpack'); // 默认全局变量
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin') // html插件
+const webpack = require('webpack') // 默认全局变量
 
 // 抽取css成单独文件
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 // 压缩css用的
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 const exportENV = (env) => {
-  const currentENV = require(path.resolve(__dirname, 'env') + '/' + (env ? env : 'index') + '.js')
-  return currentENV;
+  const currentENV = require(`${path.resolve(__dirname, 'env') }/${ env || 'index' }.js`)
+  return currentENV
 }
 
 
 // 导出配置
 module.exports = (env, args) => {
 // prd 模式
-const cssTypePrd = args.env.css === 'prd';
+  const cssTypePrd = args.env.css === 'prd'
 
   return {
     entry: './app.js', // 入口文件
@@ -52,14 +52,22 @@ const cssTypePrd = args.env.css === 'prd';
               loader: 'css-loader',
               options: {
                 modules: {
-                  localIdentName: "[path][name]__[local]--[hash:base64:5]", // 解决 css冲突问题, 比较齐全的配置看文档 https://webpack.docschina.org/loaders/css-loader/#modules
+                  localIdentName: '[path][name]__[local]--[hash:base64:5]', // 解决 css冲突问题, 比较齐全的配置看文档 https://webpack.docschina.org/loaders/css-loader/#modules
                 },
-              }
+              },
             }, // 解决 import 引入css问题
             'less-loader', // 预处理
           ],
-        }
-      ]
+        },
+        {
+          test: /\.(png|jpe?g|gif)$/i,
+          use: [
+            {
+              loader: 'file-loader',
+            },
+          ],
+        }, // 文件处理
+      ],
     },
     plugins: [ // 插件管理
       // 静态文件插入
@@ -69,16 +77,16 @@ const cssTypePrd = args.env.css === 'prd';
       }),
       // 环境变量处理
       new webpack.DefinePlugin({
-        GLOBAL_ENV: JSON.stringify(exportENV(env.model))
+        GLOBAL_ENV: JSON.stringify(exportENV(env.model)),
       }),
     ].concat(
-      cssTypePrd ? [new MiniCssExtractPlugin()] : []
-    ),// 抽取css文件
+      cssTypePrd ? [new MiniCssExtractPlugin()] : [],
+    ), // 抽取css文件
     optimization: {
       minimize: true, // 允许优化
       minimizer: [
         new CssMinimizerPlugin(), // 压缩css
-      ]
+      ],
     },
   }
 }
