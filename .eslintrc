@@ -1,7 +1,9 @@
 {
     "extends": [
         "eslint-config-ali",
-        "eslint-config-ali/react"
+        "eslint-config-ali/react",
+        "eslint-config-ali/typescript",
+        "eslint-config-ali/typescript/react"
         // "eslint-config-ali/jsx-a11y" // 无障碍辅助功能
     ],
     "rules": {

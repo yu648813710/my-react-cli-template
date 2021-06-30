@@ -1,0 +1,71 @@
+.itemBox {
+    display: flex;
+    height: 50px;
+    line-height: 50px;
+    background: #fff;
+    padding: 0 20px;
+    color: #fff;
+    transition: all 1.2s;
+    margin-bottom: 8px;
+
+    &:hover {
+        background: cornflowerblue;
+
+        p {
+            color: #fff;
+        }
+
+        span {
+            background: #fff;
+            color: tomato;
+        }
+        .completa {
+            color:lightseagreen;
+        }
+    }
+
+    p {
+        flex: 1;
+        color: #000;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    span {
+        display: block;
+        width: 30px;
+        text-align: center;
+        height: 30px;
+        margin: 10px;
+        line-height: 25px;
+        border-radius: 50%;
+        cursor: pointer;
+        color: #fff;
+        font-size: 30px;
+    }
+
+    .del {
+        background: tomato;
+    }
+
+    .completa {
+        font-size: 10px;
+        font-weight: 600;
+        background:lightseagreen;
+    }
+}
+.complateItem{
+    background: #000;
+    border: 1px solid #fff;
+
+    &:hover {
+        background: #fff;
+        border: 3px solid cornflowerblue;
+        p {
+            color: #000;
+        }
+    }
+    p{
+        color:#fff;
+    }
+}
