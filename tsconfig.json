@@ -1,7 +1,7 @@
 {
     "compilerOptions": { // 编译配置
         "jsx": "react",
-        "types": ["node", "react", "react-dom"],
+        "types": ["node", "react", "react-dom", "webpack-env"],
         "allowSyntheticDefaultImports": true,
         // 不生成文件，只做类型检查
         "noEmit": true,        

@@ -79,6 +79,8 @@ module.exports = (env, args) => {
       new webpack.DefinePlugin({
         GLOBAL_ENV: JSON.stringify(exportENV(env.model)),
       }),
+      // 热处理
+      new webpack.HotModuleReplacementPlugin(),
     ].concat(
       cssTypePrd ? [new MiniCssExtractPlugin()] : [],
     ), // 抽取css文件

@@ -14,8 +14,8 @@ const Render = function () {
 
 // 第一次出现要加载
 Render()
-// 后面的热加载
 
+// 后面的热加载
 if (module.hot) {
   module.hot.accept('./src/index', () => {
     Render()

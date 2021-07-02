@@ -1,3 +1,4 @@
+
 declare module '*.less' {
 
     const classes: { [className: string]: string };
@@ -22,4 +23,3 @@ declare module '*.tiff'
 
 declare var GLOBAL_ENV: string;
 
-declare var module: any;
