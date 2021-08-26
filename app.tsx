@@ -4,7 +4,7 @@ import Home from './src/index'
 import { AppContainer } from 'react-hot-loader' // 热加载
 
 const APPDOM = document.getElementById('app')
-
+console.log(1)
 const Render = function () {
   ReactDOM.render(
     (<AppContainer><Home /></AppContainer>),
