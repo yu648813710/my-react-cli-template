@@ -2,7 +2,6 @@
     "extends": [
         "eslint-config-ali",
         "eslint-config-ali/react"
-        // "eslint-config-ali/jsx-a11y" // 无障碍辅助功能
     ],
     "rules": {
         "semi": [2, "never"],

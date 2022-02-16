@@ -3,6 +3,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin') // html插件
 const webpack = require('webpack') // 默认全局变量
+const WebpackBar = require('webpackbar') // 打包进度
 
 // 抽取css成单独文件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -18,11 +19,11 @@ const exportENV = (env) => {
 
 // 导出配置
 module.exports = (env, args) => {
-// prd 模式
+  // css prd 模式
   const cssTypePrd = args.env.css === 'prd'
 
   return {
-    entry: './app.js', // 入口文件
+    entry: './app.jsx', // 入口文件
     output: {
       filename: 'index.js', // 打包名称
       path: path.resolve(__dirname, 'dist'), // 打包路径
@@ -32,16 +33,23 @@ module.exports = (env, args) => {
     devServer: { // 开发配置
       contentBase: './dist', // 要启动服务的文件夹
       hot: true, // 模块热替换
+      proxy: { // 代理
+        '/devApi': {
+          target: 'http://channel-recharge-mysqlpre.ccms.shuyun.com',
+          pathRewrite: { '^/devApi': '' },
+          changeOrigin: true,
+        },
+      },
     },
     devtool: 'eval', // 开启原始文件打印 相关配置在这里看 https://webpack.docschina.org/configuration/devtool/
     module: {
       rules: [ // 配置加载器
         {
-          test: /\.js?$/, // 处理es6语法以及jsx语法
+          test: /\.(jsx|tsx|js|ts)?$/, // 处理es6语法以及jsx语法
           loader: 'babel-loader',
           include: [
             path.resolve(__dirname, 'src'), // 使用目录
-            path.resolve(__dirname, 'app.js'), // 使用文件
+            path.resolve(__dirname, 'app.jsx'), // 使用文件
           ],
         },
         {
@@ -72,13 +80,14 @@ module.exports = (env, args) => {
     plugins: [ // 插件管理
       // 静态文件插入
       new HtmlWebpackPlugin({
-        title: 'React 脚手架',
+        title: '发票管理',
         template: path.resolve(__dirname, 'public/index.html'), // 静态文件
       }),
       // 环境变量处理
       new webpack.DefinePlugin({
         GLOBAL_ENV: JSON.stringify(exportENV(env.model)),
       }),
+      new WebpackBar(),
     ].concat(
       cssTypePrd ? [new MiniCssExtractPlugin()] : [],
     ), // 抽取css文件
@@ -88,5 +97,15 @@ module.exports = (env, args) => {
         new CssMinimizerPlugin(), // 压缩css
       ],
     },
+    resolve: {
+      extensions: ['.jsx', '.js', '.json'], // 尝试按顺序解析这些后缀名。如果有多个文件有相同的名字，但后缀名不同，webpack 会解析列在数组首位的后缀的文件 并跳过其余的后缀。
+      alias: { // 别名
+        '@components': path.resolve(__dirname, 'src/components'),
+        '@assets': path.resolve(__dirname, 'assets'),
+        '@servers': path.resolve(__dirname, 'src/servers'),
+        '@page': path.resolve(__dirname, 'src/page'),
+      },
+    },
+    stats: 'errors-only', // 标准化终端输出
   }
 }
