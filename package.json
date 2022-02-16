@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --env css=prd",
+    "build:prd": "webpack --env css=prd model=prd",
     "watch": "webpack --watch",
     "start": "webpack serve --open",
     "start:dev": "webpack serve --open --env model=dev",
@@ -32,15 +33,16 @@
     "less": "^4.1.1",
     "less-loader": "^9.0.0",
     "mini-css-extract-plugin": "^1.6.0",
-    "react-hot-loader": "^4.13.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.32.0",
     "webpack-cli": "^4.6.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "webpackbar": "^5.0.2"
   },
   "dependencies": {
+    "axios": "^0.26.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "spritejs": "^3.7.31"
+    "react-router-dom": "^6.2.1"
   }
 }

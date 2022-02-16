@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import './list.less'
 
 export default function ({ data }) {
-  useEffect(() => {
-    console.log(123)
-  })
-
   return data.map((res, index) => (
     <p key={index}>
+      <Link to="users">user</Link>
       <img src={res} />
     </p>
   ))
