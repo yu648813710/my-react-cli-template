@@ -80,7 +80,7 @@ module.exports = (env, args) => {
     plugins: [ // 插件管理
       // 静态文件插入
       new HtmlWebpackPlugin({
-        title: '发票管理',
+        title: '模板',
         template: path.resolve(__dirname, 'public/index.html'), // 静态文件
       }),
       // 环境变量处理

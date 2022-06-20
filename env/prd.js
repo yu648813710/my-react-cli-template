@@ -1,3 +1,3 @@
 module.exports = {
-  APP_ENV: 'prd',
+  APP_ENV: 'production',
 }

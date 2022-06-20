@@ -1,3 +1,3 @@
 module.exports = {
-  APP_ENV: 'dev',
+  APP_ENV: 'qa',
 }

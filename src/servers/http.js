@@ -1,6 +1,8 @@
 import axios from 'axios'
+import apiDomain from '../../api-domain.json'
 
-const commonUrl = GLOBAL_ENV.APP_ENV === 'prd' ? '' : '/devApi'
+const commonUrl = apiDomain[GLOBAL_ENV.APP_ENV]
+console.log("🚀 ~ file: http.js ~ line 5 ~ commonUrl", commonUrl)
 
 const httpInstance = axios.create({
   baseURL: commonUrl,
