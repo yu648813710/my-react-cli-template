@@ -1,4 +1,5 @@
 import React from 'react'
+import 'cloud-react/cloud-react.css'
 import {
   HashRouter,
   Routes,

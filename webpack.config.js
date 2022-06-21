@@ -54,6 +54,7 @@ module.exports = (env, args) => {
         },
         {
           test: /\.(c|le)ss$/i,
+          exclude: path.resolve('./node_modules/'),
           use: [
             !cssTypePrd ? 'style-loader' : MiniCssExtractPlugin.loader, // 抽取css文件 'style-loader', // 解决css插入dom问题 这个判断是为了解决两个不能同时使用的问题
             {
@@ -65,6 +66,14 @@ module.exports = (env, args) => {
               },
             }, // 解决 import 引入css问题
             'less-loader', // 预处理
+          ],
+        },
+        {
+          test: /\.css$/i,
+          include: path.resolve('./node_modules/'),
+          use: [
+            !cssTypePrd ? 'style-loader' : MiniCssExtractPlugin.loader, // 抽取css文件 'style-loader', // 解决css插入dom问题 这个判断是为了解决两个不能同时使用的问题
+            'css-loader', // 解决 import 引入css问题
           ],
         },
         {

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Button } from 'cloud-react'
 import List from '@components/list'
 import styles from './index.less'
 
@@ -12,5 +13,6 @@ export default () => {
   return (
     <div className={styles.App}>
       <List data={[img1]} />
+      <Button>123</Button>
     </div>)
 }
