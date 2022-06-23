@@ -1,8 +1,8 @@
 import axios from 'axios'
+import { hashHistory } from "@router/history"
 import apiDomain from '../../api-domain.json'
 
 const commonUrl = apiDomain[GLOBAL_ENV.APP_ENV]
-console.log("🚀 ~ file: http.js ~ line 5 ~ commonUrl", commonUrl)
 
 const httpInstance = axios.create({
   baseURL: commonUrl,
@@ -11,8 +11,20 @@ const httpInstance = axios.create({
 
 // 添加请求拦截器
 httpInstance.interceptors.request.use((config) => {
+  const token = window.localStorage.getItem('token');
+
+  if(!token) {
+    hashHistory.replace('/login')
+    return Promise.reject(error)
+  }
   // 在发送请求之前做些什么
-  return config
+  return {
+    ...config,
+    headers: {
+      ...config.headers,
+      'x-token': token
+    }
+  }
 }, (error) => {
   // 对请求错误做些什么
   return Promise.reject(error)

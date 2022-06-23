@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Router from './src/index'
+import Router from '@router/index'
 
 const AppDom = document.getElementById('app')
 
@@ -16,7 +16,7 @@ Render()
 // 后面的热加载
 
 if (module.hot) {
-  module.hot.accept('./src/index', () => {
+  module.hot.accept('./src/router/index', () => {
     Render()
   })
 }

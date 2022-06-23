@@ -113,6 +113,7 @@ module.exports = (env, args) => {
         '@assets': path.resolve(__dirname, 'assets'),
         '@servers': path.resolve(__dirname, 'src/servers'),
         '@page': path.resolve(__dirname, 'src/page'),
+        '@router': path.resolve(__dirname, 'src/router'),
       },
     },
     stats: 'errors-only', // 标准化终端输出
